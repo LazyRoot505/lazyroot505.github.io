@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Nafi & DCCS Journey - Haroon Ahmad</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(-45deg, #1a1a1a, #2a2a2a, #1a1a1a, #2d2d2d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        .alnafi-container {
+            max-width: 1400px;
+            margin: 100px auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .dccs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .specialization-card {
+            background: rgba(10, 10, 10, 0.8);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .specialization-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(0, 255, 255, 0.1), 
+                rgba(255, 0, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .specialization-card:hover::before {
+            opacity: 1;
+        }
+
+        .specialization-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-neon);
+        }
+
+        .progress-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--primary-neon) var(--progress),
+                rgba(255, 255, 255, 0.1) var(--progress)
+            );
+            margin: 1rem auto;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 4rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: var(--primary-neon);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin: 2rem 0;
+            position: relative;
+            width: 50%;
+            padding: 2rem;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 3rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 3rem;
+        }
+
+        .mood-indicator {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--primary-neon);
+        }
+    </style>
+
+    <!-- Loading Animation Resources -->
+    <link rel="stylesheet" href="assets/css/loading-animations.css">
+    <script src="assets/js/page-loader.js" defer></script>
+</head>
+<body>
+    <canvas id="neuralCanvas" class="neural-bg"></canvas>
+
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">HA</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Me</a>
+                <a href="skills.html">Skills</a>
+                <a href="alnafi.html">DCCS & Al-Nafi</a>
+                <a href="ai.html">AI</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="theme-switch" id="themeSwitch"></div>
+        </nav>
+    </header>
+
+    <div class="mood-indicator glass-card">
+        <h3>Current Mood</h3>
+        <div id="moodDisplay">Focused</div>
+    </div>
+
+    <main class="alnafi-container">
+        <div class="glass-card">
+            <h1>Al-Nafi Journey</h1>
+            <p>Exploring the frontiers of technology through intensive training and real-world projects at Al-Nafi.</p>
+        </div>
+
+        <section class="timeline">
+            <div class="timeline-item glass-card">
+                <h3>Started DCCS Program</h3>
+                <p>Embarked on the comprehensive Diploma in Cloud Cyber Security program.</p>
+            </div>
+            <div class="timeline-item glass-card">
+                <h3>DevOps Integration</h3>
+                <p>Implemented CI/CD pipelines and automated deployment processes.</p>
+            </div>
+            <div class="timeline-item glass-card">
+                <h3>SysOps Mastery</h3>
+                <p>Advanced system operations and infrastructure management.</p>
+            </div>
+            <div class="timeline-item glass-card">
+                <h3>AIOps Innovation</h3>
+                <p>Integrating AI into operational workflows and monitoring systems.</p>
+            </div>
+        </section>
+
+        <h2>DCCS Specializations</h2>
+        <div class="dccs-grid">
+            <a href="dccs-devops.html" class="specialization-card">
+                <h3>DevOps</h3>
+                <div class="progress-circle" style="--progress: 45%"></div>
+                <p>Development and Operations Integration</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Jenkins</span>
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">Kubernetes</span>
+                </div>
+            </a>
+
+            <a href="dccs-sysops.html" class="specialization-card">
+                <h3>SysOps</h3>
+                <div class="progress-circle" style="--progress: 33%"></div>
+                <p>System Operations Management</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">AWS</span>
+                    <span class="tech-tag">Linux</span>
+                    <span class="tech-tag">Monitoring</span>
+                </div>
+            </a>
+
+            <a href="dccs-aiops.html" class="specialization-card">
+                <h3>AIOps</h3>
+                <div class="progress-circle" style="--progress: 38%"></div>
+                <p>AI-Powered Operations</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Machine Learning</span>
+                    <span class="tech-tag">Automation</span>
+                    <span class="tech-tag">Analytics</span>
+                </div>
+            </a>
+
+            <a href="dccs-security.html" class="specialization-card">
+                <h3>Cloud Security</h3>
+                <div class="progress-circle" style="--progress: 55%"></div>
+                <p>Cloud Infrastructure Security</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">IAM</span>
+                    <span class="tech-tag">Encryption</span>
+                    <span class="tech-tag">Security Groups</span>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // Neural Network Background (same as previous)
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Mood Integration
+        const moods = ['Focused', 'Learning', 'Innovating', 'Problem-Solving'];
+        const moodDisplay = document.getElementById('moodDisplay');
+        let currentMoodIndex = 0;
+
+        function updateMood() {
+            moodDisplay.textContent = moods[currentMoodIndex];
+            currentMoodIndex = (currentMoodIndex + 1) % moods.length;
+        }
+
+        setInterval(updateMood, 3000);
+
+        // Progress Circle Animation
+        const progressCircles = document.querySelectorAll('.progress-circle');
+        progressCircles.forEach(circle => {
+            const progress = circle.style.getPropertyValue('--progress');
+            circle.style.setProperty('--progress', '0%');
+            setTimeout(() => {
+                circle.style.setProperty('--progress', progress);
+            }, 100);
+        });
+    </script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

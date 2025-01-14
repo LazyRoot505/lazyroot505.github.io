@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haroon Ahmad - Modern Tech Professional</title>
+    <link rel="stylesheet" href="assets/css/modern-portfolio.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .hero-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at center,
+                rgba(108, 99, 255, 0.2) 0%,
+                rgba(255, 101, 132, 0.1) 30%,
+                transparent 70%
+            );
+            pointer-events: none;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--glass);
+            border-radius: 12px;
+            border: 1px solid var(--glass-stroke);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0.7;
+        }
+
+        .scroll-line {
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--primary), transparent);
+            animation: scrollPulse 2s infinite;
+        }
+
+        @keyframes scrollPulse {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            50.1% { transform: scaleY(1); transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .project-card {
+            grid-column: span 4;
+            aspect-ratio: 4/3;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:nth-child(3n+2) {
+            margin-top: 4rem;
+        }
+
+        .experience-timeline {
+            position: relative;
+            padding: 4rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--glass-stroke);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+        }
+
+        .timeline-content {
+            width: 45%;
+            padding: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+    </style>
+
+    <!-- Loading Animation Resources -->
+    <link rel="stylesheet" href="assets/css/loading-animations.css">
+    <script src="assets/js/page-loader.js" defer></script>
+</head>
+<body>
+    <nav class="modern-nav">
+        <div class="modern-container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="#" class="nav-link">HA</a>
+                <div style="display: flex; gap: 2rem;">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-gradient"></div>
+            <div class="modern-container">
+                <div style="max-width: 800px;">
+                    <h1 class="headline animate-text">
+                        Transforming Ideas into Digital Reality
+                    </h1>
+                    <p class="subheadline">
+                        AI SaaS Developer & Cloud Cybersecurity Professional specializing in
+                        DevOps, SysOps, and AIOps solutions.
+                    </p>
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button class="modern-button">View Projects</button>
+                        <button class="modern-button" style="background: var(--glass);">
+                            Download CV
+                        </button>
+                    </div>
+                    <div class="tech-stack">
+                        <div class="tech-item">
+                            <svg class="tech-icon"><!-- Add icon here --></svg>
+                            <span>DCCS</span>
+                        </div>
+                        <div class="tech-item">
+                            <svg class="tech-icon"><!-- Add icon here --></svg>
+                            <span>DevOps</span>
+                        </div>
+                        <div class="tech-item">
+                            <svg class="tech-icon"><!-- Add icon here --></svg>
+                            <span>Cloud Security</span>
+                        </div>
+                        <div class="tech-item">
+                            <svg class="tech-icon"><!-- Add icon here --></svg>
+                            <span>AI Integration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>Scroll to explore</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <section id="projects" style="padding: 6rem 0;">
+            <div class="modern-container">
+                <h2 class="headline">Featured Projects</h2>
+                <div class="project-grid">
+                    <div class="project-card glass-card">
+                        <div class="project-showcase">
+                            <img src="project1.jpg" alt="Project 1" class="project-image">
+                            <div class="project-overlay">
+                                <h3>Cloud Security Implementation</h3>
+                                <p>Advanced security protocols for enterprise systems</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more project cards -->
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="experience-timeline">
+            <div class="modern-container">
+                <h2 class="headline">Professional Journey</h2>
+                <div class="timeline-line"></div>
+                <div class="timeline-item">
+                    <div class="timeline-content glass-card">
+                        <h3>Al-Nafi</h3>
+                        <p>Leading AI and Cloud Security Projects</p>
+                        <span>2023 - Present</span>
+                    </div>
+                </div>
+                <!-- Add more timeline items -->
+            </div>
+        </section>
+
+        <section id="skills" style="padding: 6rem 0;">
+            <div class="modern-container">
+                <h2 class="headline">Expertise & Skills</h2>
+                <div class="stats-grid">
+                    <div class="stat-card glass-card">
+                        <div class="stat-number">55%</div>
+                        <p>DCCS Progress</p>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-number">45%</div>
+                        <p>DevOps Mastery</p>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-number">38%</div>
+                        <p>AIOps Integration</p>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-number">33%</div>
+                        <p>SysOps Expertise</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/js/modern-animations.js"></script>
+</body>
+</html>

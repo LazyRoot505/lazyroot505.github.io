@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Haroon Ahmad</title>
+    <link rel="stylesheet" href="assets/css/modern-portfolio.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .about-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-section {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+            align-items: center;
+        }
+
+        .profile-image-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            object-fit: cover;
+            border: 1px solid var(--glass-stroke);
+            backdrop-filter: blur(10px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .profile-image-container::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 26px;
+            padding: 2px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            transition: opacity 0.5s ease;
+        }
+
+        .profile-image-container:hover::before {
+            opacity: 1;
+        }
+
+        .bio-content {
+            background: var(--glass);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 24px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .bio-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bio-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline {
+            margin-top: 6rem;
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .timeline-item {
+            background: var(--glass);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.2);
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .stats-section {
+            margin-top: 6rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--glass);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-bars {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .loader-bars span {
+            width: 12px;
+            height: 35px;
+            background: var(--primary);
+            border-radius: 20px;
+            animation: loader-bars 1.5s ease-in-out infinite;
+        }
+
+        .loader-bars span:nth-child(1) {
+            animation-delay: 0s;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+
+        .loader-bars span:nth-child(2) {
+            animation-delay: 0.1s;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+
+        .loader-bars span:nth-child(3) {
+            animation-delay: 0.2s;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+
+        .loader-bars span:nth-child(4) {
+            animation-delay: 0.3s;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+
+        .loader-bars span:nth-child(5) {
+            animation-delay: 0.4s;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+        }
+
+        @keyframes loader-bars {
+            0%, 100% {
+                transform: scaleY(0.5);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scaleY(1.2);
+                opacity: 1;
+            }
+        }
+
+        .loader-text {
+            color: var(--primary);
+            font-size: 1.2rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            animation: pulse-text 2s ease-in-out infinite;
+            position: relative;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+
+        .loader-text::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            animation: text-line 2s ease-in-out infinite;
+        }
+
+        @keyframes text-line {
+            0% {
+                width: 0;
+                left: 0;
+            }
+            50% {
+                width: 100%;
+                left: 0;
+            }
+            100% {
+                width: 0;
+                left: 100%;
+            }
+        }
+
+        .page-loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .content-wrapper {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .content-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal-section.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+
+    <!-- Loading Animation Resources -->
+    <link rel="stylesheet" href="assets/css/loading-animations.css">
+    <script src="assets/js/page-loader.js" defer></script>
+</head>
+<body>
+    <div class="page-loader">
+        <div class="loader-content">
+            <div class="loader-bars">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="loader-text">Loading</div>
+        </div>
+    </div>
+
+    <div class="scroll-progress">
+        <div class="progress-bar" id="scrollProgress"></div>
+    </div>
+
+    <canvas id="neuralCanvas" class="neural-bg"></canvas>
+
+    <nav class="modern-nav">
+        <div class="modern-container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="#" class="nav-link">HA</a>
+                <div style="display: flex; gap: 2rem;">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="skills.html" class="nav-link">Skills</a>
+                    <a href="dccs.html" class="nav-link">DCCS</a>
+                    <a href="alnafi-new.html" class="nav-link">Al-Nafi</a>
+                    <a href="ai.html" class="nav-link">AI</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <main class="about-container">
+            <section class="profile-section reveal-section">
+                <div class="profile-image-container animate-on-scroll">
+                    <img src="assets/images/profile.jpg" alt="Haroon Ahmad" class="profile-image">
+                </div>
+                <div class="bio-content animate-on-scroll">
+                    <h1 class="bio-title">About Me</h1>
+                    <p class="bio-text">As a dedicated AI SaaS Developer and Cloud Cybersecurity Professional based in Multan, Pakistan, I'm passionate about creating innovative solutions that bridge the gap between artificial intelligence and cybersecurity.</p>
+                    <p class="bio-text">Currently advancing my expertise in Digital Cloud Cybersecurity Services (DCCS) while contributing to groundbreaking projects at Al-Nafi, where we're revolutionizing cybersecurity education and implementation.</p>
+                    <p class="bio-text">Address: House No. 45, Street No. 7, Ahmed Ali Road, Multan Cantt, Punjab</p>
+                </div>
+            </section>
+
+            <section class="stats-section reveal-section">
+                <h2 class="section-title animate-text">Professional Impact</h2>
+                <div class="stats-grid">
+                    <div class="stat-card animate-on-scroll">
+                        <div class="stat-number">5+</div>
+                        <p>Years Experience</p>
+                    </div>
+                    <div class="stat-card animate-on-scroll">
+                        <div class="stat-number">50+</div>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat-card animate-on-scroll">
+                        <div class="stat-number">100%</div>
+                        <p>Client Satisfaction</p>
+                    </div>
+                    <div class="stat-card animate-on-scroll">
+                        <div class="stat-number">24/7</div>
+                        <p>Support</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="timeline reveal-section">
+                <h2 class="section-title animate-text">Professional Journey</h2>
+                <div class="timeline-grid">
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-year">2024 - Present</div>
+                        <h3 class="timeline-title">Advanced DCCS & Al-Nafi</h3>
+                        <p class="timeline-description">Leading innovative projects in cloud cybersecurity and AI integration while contributing to educational initiatives at Al-Nafi.</p>
+                    </div>
+
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-year">2023</div>
+                        <h3 class="timeline-title">DevOps & Cloud Security</h3>
+                        <p class="timeline-description">Mastered DevOps practices and implemented robust cloud security solutions for enterprise-level applications.</p>
+                    </div>
+
+                    <div class="timeline-item animate-on-scroll">
+                        <div class="timeline-year">2022</div>
+                        <h3 class="timeline-title">AI & Machine Learning</h3>
+                        <p class="timeline-description">Began specializing in AI and machine learning, developing intelligent solutions for complex problems.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="assets/js/modern-animations.js"></script>
+    <script>
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // Neural Background Animation
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function animateBackground() {
+            const nodes = [];
+            const connections = [];
+            const nodeCount = 50;
+
+            // Create nodes
+            for (let i = 0; i < nodeCount; i++) {
+                nodes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2 + 1,
+                    speedX: (Math.random() - 0.5) * 1,
+                    speedY: (Math.random() - 0.5) * 1
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Update and draw nodes
+                nodes.forEach(node => {
+                    node.x += node.speedX;
+                    node.y += node.speedY;
+
+                    if (node.x < 0 || node.x > canvas.width) node.speedX *= -1;
+                    if (node.y < 0 || node.y > canvas.height) node.speedY *= -1;
+
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(108, 99, 255, 0.5)';
+                    ctx.fill();
+                });
+
+                // Draw connections
+                nodes.forEach((nodeA, i) => {
+                    nodes.slice(i + 1).forEach(nodeB => {
+                        const dx = nodeB.x - nodeA.x;
+                        const dy = nodeB.y - nodeA.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(nodeA.x, nodeA.y);
+                            ctx.lineTo(nodeB.x, nodeB.y);
+                            ctx.strokeStyle = `rgba(108, 99, 255, ${1 - distance / 150})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    });
+                });
+
+                requestAnimationFrame(draw);
+            }
+
+            draw();
+        }
+
+        animateBackground();
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loader = document.querySelector('.page-loader');
+            const contentWrapper = document.querySelector('.content-wrapper');
+            
+            // Simulate loading time (remove this in production)
+            setTimeout(() => {
+                loader.classList.add('fade-out');
+                contentWrapper.classList.add('visible');
+            }, 1500);
+
+            // Handle actual page load
+            window.addEventListener('load', () => {
+                loader.classList.add('fade-out');
+                contentWrapper.classList.add('visible');
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('reveal-section');
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

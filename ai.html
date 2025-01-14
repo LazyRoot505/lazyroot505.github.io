@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Projects - Haroon Ahmad</title>
+    <link rel="stylesheet" href="assets/css/modern-portfolio.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .ai-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .ai-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 24px;
+            padding: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .ai-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.2);
+        }
+
+        .ai-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, 
+                rgba(108, 99, 255, 0.1), 
+                rgba(0, 245, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .ai-card:hover::before {
+            opacity: 1;
+        }
+
+        .ai-visualization {
+            position: relative;
+            height: 200px;
+            margin: 1.5rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--darker);
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            padding: 0.5rem 1rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 12px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .metric-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.2);
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+
+        .pulse-animation {
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .hero-section {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                circle at center,
+                rgba(108, 99, 255, 0.2) 0%,
+                rgba(0, 245, 255, 0.1) 30%,
+                transparent 70%
+            );
+            pointer-events: none;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--glass);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .mood-project {
+            height: auto;
+        }
+
+        .mood-interface {
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 24px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-stroke);
+        }
+
+        .mood-selector {
+            margin-bottom: 2rem;
+        }
+
+        .mood-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .mood-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            background: var(--glass);
+            border: 1px solid var(--glass-stroke);
+            cursor: pointer;
+        }
+
+        .mood-option input[type="radio"] {
+            display: none;
+        }
+
+        .mood-option input[type="radio"]:checked + .mood-content {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .mood-content {
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .mood-icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .mood-display {
+            margin-top: 2rem;
+        }
+
+        .quote-container {
+            padding: 2rem;
+            border-radius: 24px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-stroke);
+        }
+
+        .mood-quote {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .audio-controls {
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .volume-control input[type="range"] {
+            width: 100px;
+        }
+
+        .music-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .track-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100px;
+            height: 4px;
+            background: var(--glass);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.1s ease;
+        }
+
+        .digital-clock {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem 2rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
+        }
+
+        .time {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Plus Jakarta Sans', monospace;
+        }
+
+        .hours, .minutes, .seconds {
+            display: inline-block;
+            min-width: 2ch;
+            text-align: center;
+        }
+
+        .ampm {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .date {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.5rem;
+        }
+
+        .colon {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .visualization-container {
+            position: relative;
+            height: 200px;
+            margin: 1.5rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--darker);
+        }
+
+        .chart-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .stats-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .project-actions {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .action-button {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white !important;
+            text-decoration: none !important;
+            border-radius: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.2);
+            cursor: pointer;
+            border: none;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.3);
+        }
+
+        .action-button:active {
+            transform: translateY(0);
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .action-button:hover::before {
+            opacity: 1;
+        }
+
+        .action-button span {
+            font-size: 1.2rem;
+        }
+    </style>
+
+    <!-- Loading Animation Resources -->
+    <link rel="stylesheet" href="assets/css/loading-animations.css">
+    <script src="assets/js/page-loader.js" defer></script>
+</head>
+<body>
+    <div class="scroll-progress">
+        <div class="progress-bar" id="scrollProgress"></div>
+    </div>
+
+    <canvas id="neuralCanvas" class="neural-bg"></canvas>
+
+    <nav class="modern-nav">
+        <div class="modern-container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="#" class="nav-link">HA</a>
+                <div style="display: flex; gap: 2rem;">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="skills.html" class="nav-link">Skills</a>
+                    <a href="dccs.html" class="nav-link">DCCS</a>
+                    <a href="alnafi-new.html" class="nav-link">Al-Nafi</a>
+                    <a href="ai.html" class="nav-link">AI</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="modern-container">
+            <h1 class="headline animate-text">AI Projects</h1>
+            <p class="subheadline">Exploring the Frontiers of Artificial Intelligence</p>
+        </div>
+    </section>
+
+    <main class="ai-container">
+        <div class="metrics-grid">
+            <div class="metric-card animate-on-scroll">
+                <div class="metric-number">15+</div>
+                <p>AI Projects</p>
+            </div>
+            <div class="metric-card animate-on-scroll">
+                <div class="metric-number">98%</div>
+                <p>Accuracy Rate</p>
+            </div>
+            <div class="metric-card animate-on-scroll">
+                <div class="metric-number">5+</div>
+                <p>Research Papers</p>
+            </div>
+            <div class="metric-card animate-on-scroll">
+                <div class="metric-number">100K+</div>
+                <p>Data Points</p>
+            </div>
+        </div>
+
+        <!-- Mood Analysis Project -->
+        <div class="ai-card mood-project" style="height: auto; margin-bottom: 3rem;">
+            <h2>Featured Project: Mood Analysis</h2>
+            <p>An advanced AI system that analyzes and understands human emotions through text and facial expressions.</p>
+            
+            <div class="mood-interface glass-effect">
+                <div class="mood-selector">
+                    <div class="digital-clock">
+                        <div class="time">
+                            <span class="hours">00</span>
+                            <span class="colon">:</span>
+                            <span class="minutes">00</span>
+                            <span class="colon">:</span>
+                            <span class="seconds">00</span>
+                            <span class="ampm">AM</span>
+                        </div>
+                        <div class="date"></div>
+                    </div>
+                    <h3>How are you feeling?</h3>
+                    <div class="mood-options">
+                        <label class="mood-option">
+                            <input type="radio" name="mood" value="happy">
+                            <div class="mood-content">
+                                <span class="mood-icon">😊</span>
+                                <span>Happy</span>
+                            </div>
+                        </label>
+                        <label class="mood-option">
+                            <input type="radio" name="mood" value="sad">
+                            <div class="mood-content">
+                                <span class="mood-icon">😢</span>
+                                <span>Sad</span>
+                            </div>
+                        </label>
+                        <label class="mood-option">
+                            <input type="radio" name="mood" value="energetic">
+                            <div class="mood-content">
+                                <span class="mood-icon">⚡</span>
+                                <span>Energetic</span>
+                            </div>
+                        </label>
+                        <label class="mood-option">
+                            <input type="radio" name="mood" value="calm">
+                            <div class="mood-content">
+                                <span class="mood-icon">😌</span>
+                                <span>Calm</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="mood-display">
+                    <div class="quote-container">
+                        <p class="mood-quote"></p>
+                    </div>
+                    <div class="audio-controls">
+                        <div class="volume-control">
+                            <i class="fas fa-volume-up"></i>
+                            <input type="range" id="volumeSlider" min="0" max="100" value="60">
+                        </div>
+                        <div class="music-info">
+                            <span class="track-name"></span>
+                            <div class="progress-bar">
+                                <div class="progress"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-actions" style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center;">
+                <a href="./ai-analytics.html" class="action-button">
+                    <span>📊</span>
+                    View AI Analytics Dashboard
+                </a>
+            </div>
+
+            <div class="tech-tags">
+                <span class="tech-tag">Machine Learning</span>
+                <span class="tech-tag">Natural Language Processing</span>
+                <span class="tech-tag">Emotion Recognition</span>
+                <span class="tech-tag">Audio Processing</span>
+            </div>
+        </div>
+
+        <div class="ai-grid">
+            <div class="ai-card animate-on-scroll">
+                <div>
+                    <h3>AI-Powered Security Analysis</h3>
+                    <p>Advanced threat detection using machine learning algorithms</p>
+                    <div class="visualization-container">
+                        <canvas class="neural-visualization" id="securityViz"></canvas>
+                        <div class="chart-container">
+                            <canvas id="securityChart"></canvas>
+                        </div>
+                        <div class="stats-overlay">
+                            <div class="stat-item">
+                                <span class="stat-value">98.5%</span>
+                                <span class="stat-label">Accuracy</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">0.2ms</span>
+                                <span class="stat-label">Response Time</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-tags">
+                        <span class="tech-tag">TensorFlow</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Neural Networks</span>
+                    </div>
+                </div>
+                <a href="projects/security-analysis.html" class="modern-button" onclick="window.location.href='projects/security-analysis.html'">View Project Details</a>
+            </div>
+
+            <div class="ai-card animate-on-scroll">
+                <div>
+                    <h3>DevOps Automation AI</h3>
+                    <p>Intelligent automation for deployment pipelines</p>
+                    <div class="visualization-container">
+                        <canvas class="neural-visualization" id="devopsViz"></canvas>
+                        <div class="chart-container">
+                            <canvas id="devopsChart"></canvas>
+                        </div>
+                        <div class="stats-overlay">
+                            <div class="stat-item">
+                                <span class="stat-value">85%</span>
+                                <span class="stat-label">Automation</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">60%</span>
+                                <span class="stat-label">Time Saved</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Jenkins</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                </div>
+                <a href="projects/devops-ai.html" class="modern-button" onclick="window.location.href='projects/devops-ai.html'">View Project Details</a>
+            </div>
+
+            <div class="ai-card animate-on-scroll">
+                <div>
+                    <h3>System Behavior Analysis</h3>
+                    <p>Predictive analytics for system performance</p>
+                    <div class="visualization-container">
+                        <canvas class="neural-visualization" id="systemViz"></canvas>
+                        <div class="chart-container">
+                            <canvas id="systemChart"></canvas>
+                        </div>
+                        <div class="stats-overlay">
+                            <div class="stat-item">
+                                <span class="stat-value">95%</span>
+                                <span class="stat-label">Prediction</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">5min</span>
+                                <span class="stat-label">Early Warning</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Deep Learning</span>
+                        <span class="tech-tag">Keras</span>
+                        <span class="tech-tag">Time Series</span>
+                    </div>
+                </div>
+                <a href="projects/system-analysis.html" class="modern-button" onclick="window.location.href='projects/system-analysis.html'">View Project Details</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/modern-animations.js"></script>
+    <script>
+        // Clock update function
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            document.querySelector('.hours').textContent = String(hours).padStart(2, '0');
+            document.querySelector('.minutes').textContent = String(minutes).padStart(2, '0');
+            document.querySelector('.seconds').textContent = String(seconds).padStart(2, '0');
+            document.querySelector('.ampm').textContent = ampm;
+            document.querySelector('.date').textContent = now.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Update clock immediately and every second
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // Neural Background
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // AI Visualization
+        function createVisualization(containerId, nodeCount) {
+            const container = document.getElementById(containerId);
+            const nodes = [];
+            const connections = [];
+
+            // Create nodes
+            for (let i = 0; i < nodeCount; i++) {
+                const node = {
+                    x: Math.random() * container.offsetWidth,
+                    y: Math.random() * container.offsetHeight,
+                    radius: Math.random() * 3 + 2,
+                    speedX: (Math.random() - 0.5) * 2,
+                    speedY: (Math.random() - 0.5) * 2
+                };
+                nodes.push(node);
+            }
+
+            // Create connections
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    if (Math.random() > 0.5) {
+                        connections.push([i, j]);
+                    }
+                }
+            }
+
+            function animate() {
+                const canvas = document.createElement('canvas');
+                canvas.style.position = 'absolute';
+                canvas.style.top = '0';
+                canvas.style.left = '0';
+                canvas.width = container.offsetWidth;
+                canvas.height = container.offsetHeight;
+                container.appendChild(canvas);
+
+                const ctx = canvas.getContext('2d');
+
+                function draw() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    // Update and draw nodes
+                    nodes.forEach(node => {
+                        node.x += node.speedX;
+                        node.y += node.speedY;
+
+                        if (node.x < 0 || node.x > canvas.width) node.speedX *= -1;
+                        if (node.y < 0 || node.y > canvas.height) node.speedY *= -1;
+
+                        ctx.beginPath();
+                        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = '#6C63FF';
+                        ctx.fill();
+                    });
+
+                    // Draw connections
+                    connections.forEach(([i, j]) => {
+                        const nodeA = nodes[i];
+                        const nodeB = nodes[j];
+                        const dx = nodeB.x - nodeA.x;
+                        const dy = nodeB.y - nodeA.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        ctx.beginPath();
+                        ctx.moveTo(nodeA.x, nodeA.y);
+                        ctx.lineTo(nodeB.x, nodeB.y);
+                        ctx.strokeStyle = `rgba(108, 99, 255, ${1 - distance / 200})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    });
+
+                    requestAnimationFrame(draw);
+                }
+
+                draw();
+            }
+
+            animate();
+        }
+
+        // Mood quotes database
+        const moodQuotes = {
+            happy: [
+                "Happiness is not something ready made. It comes from your own actions.",
+                "The most wasted of all days is one without laughter.",
+                "For every minute you are angry you lose sixty seconds of happiness.",
+                "Happiness is a warm puppy.",
+                "The happiness of your life depends upon the quality of your thoughts."
+            ],
+            sad: [
+                "Even the darkest night will end and the sun will rise.",
+                "In the middle of winter I at last discovered that there was in me an invincible summer.",
+                "The pain you feel today is the strength you feel tomorrow.",
+                "Sometimes you've got to be able to listen to yourself and be okay with no one else understanding.",
+                "The good life is not one immune to sadness but one in which suffering contributes to our development."
+            ],
+            energetic: [
+                "Life is either a daring adventure or nothing at all.",
+                "The only way to do great work is to love what you do.",
+                "Your energy introduces you before you even speak.",
+                "The future belongs to those who believe in the beauty of their dreams.",
+                "Don't watch the clock; do what it does. Keep going."
+            ],
+            calm: [
+                "Peace comes from within. Do not seek it without.",
+                "Within you, there is a stillness and a sanctuary to which you can retreat at any time.",
+                "The calmer you are, the better you are at everything.",
+                "Breath is the power behind all things.",
+                "Calmness is the cradle of power."
+            ]
+        };
+
+        // Music configuration
+        const moodMusic = {
+            calm: [
+                {
+                    url: 'mood/assets/audio/aurora-night-stay.mp3',
+                    duration: 10
+                },
+                {
+                    url: 'mood/assets/audio/aurora-night-moon.mp3',
+                    duration: 10
+                }
+            ],
+            happy: [
+                {
+                    url: 'mood/assets/audio/happy-upbeat.mp3',
+                    duration: 10
+                }
+            ],
+            sad: [
+                {
+                    url: 'mood/assets/audio/melancholic-piano.mp3',
+                    duration: 10
+                }
+            ],
+            energetic: [
+                {
+                    url: 'mood/assets/audio/energetic-beats.mp3',
+                    duration: 10
+                }
+            ]
+        };
+
+        let currentAudio = null;
+        let currentMusicIndex = 0;
+
+        // Function to update quote
+        function updateQuote(mood) {
+            const quoteElement = document.querySelector('.mood-quote');
+            const quotes = moodQuotes[mood];
+            quoteElement.style.opacity = '0';
+            
+            setTimeout(() => {
+                quoteElement.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+                quoteElement.style.opacity = '1';
+            }, 300);
+        }
+
+        // Function to play mood music
+        function playMoodMusic(mood) {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+
+            const moodTracks = moodMusic[mood];
+            if (!moodTracks || moodTracks.length === 0) return;
+
+            currentMusicIndex = 0;
+            playNextTrack(mood);
+        }
+
+        // Function to play next track
+        function playNextTrack(mood) {
+            const moodTracks = moodMusic[mood];
+            if (currentMusicIndex >= moodTracks.length) {
+                currentMusicIndex = 0;
+            }
+
+            const track = moodTracks[currentMusicIndex];
+            currentAudio = new Audio(track.url);
+            currentAudio.volume = volumeSlider.value / 100;
+
+            // Update track name
+            const trackName = track.url.split('/').pop().replace('.mp3', '');
+            document.querySelector('.track-name').textContent = trackName;
+
+            // Reset progress bar
+            document.querySelector('.progress').style.width = '0%';
+
+            currentAudio.addEventListener('timeupdate', () => {
+                const progress = (currentAudio.currentTime / currentAudio.duration) * 100;
+                document.querySelector('.progress').style.width = `${progress}%`;
+            });
+
+            currentAudio.addEventListener('ended', () => {
+                currentMusicIndex++;
+                playNextTrack(mood);
+                
+                // For calm mood, change quote when music changes
+                if (mood === 'calm') {
+                    updateQuote(mood);
+                }
+            });
+
+            currentAudio.play();
+        }
+
+        // Handle mood selection
+        const moodOptions = document.querySelectorAll('input[name="mood"]');
+        moodOptions.forEach((option) => {
+            option.addEventListener('change', (event) => {
+                const mood = event.target.value;
+                updateQuote(mood);
+                playMoodMusic(mood);
+            });
+        });
+
+        // Handle volume control
+        const volumeSlider = document.getElementById('volumeSlider');
+        volumeSlider.addEventListener('input', (e) => {
+            const volume = e.target.value / 100;
+            if (currentAudio) {
+                currentAudio.volume = volume;
+            }
+        });
+
+        // Neural Network Visualization
+        function createNeuralVisualization(canvasId, layers) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            
+            const neurons = [];
+            const connections = [];
+            
+            // Create neurons for each layer
+            for (let l = 0; l < layers; l++) {
+                const layerNeurons = [];
+                const neuronsInLayer = Math.floor(Math.random() * 3) + 3;
+                
+                for (let n = 0; n < neuronsInLayer; n++) {
+                    layerNeurons.push({
+                        x: (l + 1) * canvas.width / (layers + 1),
+                        y: (n + 1) * canvas.height / (neuronsInLayer + 1),
+                        activation: Math.random()
+                    });
+                }
+                neurons.push(layerNeurons);
+            }
+            
+            // Create connections between layers
+            for (let l = 0; l < neurons.length - 1; l++) {
+                const currentLayer = neurons[l];
+                const nextLayer = neurons[l + 1];
+                
+                for (let c = 0; c < currentLayer.length; c++) {
+                    for (let n = 0; n < nextLayer.length; n++) {
+                        connections.push({
+                            from: currentLayer[c],
+                            to: nextLayer[n],
+                            weight: Math.random()
+                        });
+                    }
+                }
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw connections
+                connections.forEach(conn => {
+                    const gradient = ctx.createLinearGradient(conn.from.x, conn.from.y, conn.to.x, conn.to.y);
+                    gradient.addColorStop(0, `rgba(var(--primary-rgb), ${conn.weight * 0.5})`);
+                    gradient.addColorStop(1, `rgba(var(--accent-rgb), ${conn.weight * 0.5})`);
+                    
+                    ctx.beginPath();
+                    ctx.strokeStyle = gradient;
+                    ctx.lineWidth = conn.weight * 2;
+                    ctx.moveTo(conn.from.x, conn.from.y);
+                    ctx.lineTo(conn.to.x, conn.to.y);
+                    ctx.stroke();
+                    
+                    conn.weight = 0.1 + Math.abs(Math.sin(Date.now() / 1000) * 0.9);
+                });
+                
+                // Draw neurons
+                neurons.forEach(layer => {
+                    layer.forEach(neuron => {
+                        const gradient = ctx.createRadialGradient(
+                            neuron.x, neuron.y, 0,
+                            neuron.x, neuron.y, 20
+                        );
+                        gradient.addColorStop(0, 'rgba(var(--primary-rgb), 0.8)');
+                        gradient.addColorStop(1, 'rgba(var(--accent-rgb), 0)');
+                        
+                        ctx.beginPath();
+                        ctx.fillStyle = gradient;
+                        ctx.arc(neuron.x, neuron.y, 10, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        neuron.activation = 0.1 + Math.abs(Math.sin(Date.now() / 1000) * 0.9);
+                    });
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+
+        // Create charts
+        function createCharts() {
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: { display: false },
+                    y: { display: false }
+                },
+                elements: {
+                    line: {
+                        tension: 0.4,
+                        borderWidth: 2
+                    },
+                    point: {
+                        radius: 0
+                    }
+                }
+            };
+
+            // Security Chart
+            new Chart(document.getElementById('securityChart'), {
+                type: 'line',
+                data: {
+                    labels: Array(24).fill(''),
+                    datasets: [{
+                        data: Array(24).fill(0).map(() => Math.random() * 100),
+                        borderColor: 'rgba(var(--primary-rgb), 0.5)',
+                        backgroundColor: 'rgba(var(--primary-rgb), 0.1)',
+                        fill: true
+                    }]
+                },
+                options: chartOptions
+            });
+
+            // DevOps Chart
+            new Chart(document.getElementById('devopsChart'), {
+                type: 'line',
+                data: {
+                    labels: Array(24).fill(''),
+                    datasets: [{
+                        data: Array(24).fill(0).map(() => Math.random() * 100),
+                        borderColor: 'rgba(var(--accent-rgb), 0.5)',
+                        backgroundColor: 'rgba(var(--accent-rgb), 0.1)',
+                        fill: true
+                    }]
+                },
+                options: chartOptions
+            });
+
+            // System Chart
+            new Chart(document.getElementById('systemChart'), {
+                type: 'line',
+                data: {
+                    labels: Array(24).fill(''),
+                    datasets: [{
+                        data: Array(24).fill(0).map(() => Math.random() * 100),
+                        borderColor: 'rgba(var(--success-rgb), 0.5)',
+                        backgroundColor: 'rgba(var(--success-rgb), 0.1)',
+                        fill: true
+                    }]
+                },
+                options: chartOptions
+            });
+        }
+
+        // Initialize visualizations
+        createNeuralVisualization('securityViz', 4);
+        createNeuralVisualization('devopsViz', 3);
+        createNeuralVisualization('systemViz', 5);
+        createCharts();
+    </script>
+</body>
+</html>

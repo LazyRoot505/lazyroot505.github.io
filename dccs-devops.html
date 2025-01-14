@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCCS DevOps - Haroon Ahmad</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .devops-container {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pipeline-visualization {
+            position: relative;
+            height: 200px;
+            margin: 3rem 0;
+            background: rgba(10, 10, 10, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .pipeline-stage {
+            position: absolute;
+            height: 30px;
+            background: linear-gradient(90deg, var(--primary-neon), var(--secondary-neon));
+            border-radius: 15px;
+            animation: pipelineFlow 3s infinite;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tool-card {
+            background: rgba(10, 10, 10, 0.8);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px var(--primary-neon);
+        }
+
+        .proficiency-meter {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .proficiency-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-neon), var(--secondary-neon));
+            animation: fillProgress 1s ease-out forwards;
+        }
+
+        @keyframes pipelineFlow {
+            0% { width: 0; left: 0; }
+            50% { width: 50%; left: 25%; }
+            100% { width: 0; left: 100%; }
+        }
+
+        @keyframes fillProgress {
+            from { width: 0; }
+            to { width: var(--progress); }
+        }
+
+        .concept-list {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+
+        .concept-item {
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-neon);
+        }
+
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+    </style>
+
+    <!-- Loading Animation Resources -->
+    <link rel="stylesheet" href="assets/css/loading-animations.css">
+    <script src="assets/js/page-loader.js" defer></script>
+</head>
+<body>
+    <canvas id="neuralCanvas" class="neural-bg"></canvas>
+
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">HA</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Me</a>
+                <a href="skills.html">Skills</a>
+                <a href="alnafi.html">DCCS & Al-Nafi</a>
+                <a href="ai.html">AI</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="theme-switch" id="themeSwitch"></div>
+        </nav>
+    </header>
+
+    <main class="devops-container">
+        <div class="glass-card">
+            <h1>DevOps Specialization</h1>
+            <p>Mastering the integration of development and operations through automated pipelines and efficient workflows.</p>
+        </div>
+
+        <div class="pipeline-visualization">
+            <div class="pipeline-stage"></div>
+        </div>
+
+        <section>
+            <h2>Core Concepts</h2>
+            <ul class="concept-list">
+                <li class="concept-item">
+                    <h3>Continuous Integration</h3>
+                    <p>Automated build and test processes ensuring code quality and integration.</p>
+                </li>
+                <li class="concept-item">
+                    <h3>Continuous Deployment</h3>
+                    <p>Automated deployment pipelines for efficient software delivery.</p>
+                </li>
+                <li class="concept-item">
+                    <h3>Infrastructure as Code</h3>
+                    <p>Managing and provisioning infrastructure through code.</p>
+                </li>
+                <li class="concept-item">
+                    <h3>Monitoring and Logging</h3>
+                    <p>Real-time system monitoring and log analysis.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="tools-grid">
+            <div class="tool-card">
+                <h3>Jenkins</h3>
+                <p>Automation server for building, deploying, and automating projects.</p>
+                <div class="proficiency-meter">
+                    <div class="proficiency-fill" style="--progress: 75%"></div>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <h3>Docker</h3>
+                <p>Container platform for building, shipping, and running applications.</p>
+                <div class="proficiency-meter">
+                    <div class="proficiency-fill" style="--progress: 80%"></div>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <h3>Kubernetes</h3>
+                <p>Container orchestration platform for scaling and managing applications.</p>
+                <div class="proficiency-meter">
+                    <div class="proficiency-fill" style="--progress: 65%"></div>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <h3>Git</h3>
+                <p>Version control system for tracking code changes and collaboration.</p>
+                <div class="proficiency-meter">
+                    <div class="proficiency-fill" style="--progress: 85%"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-card">
+            <h2>Projects & Implementations</h2>
+            <div class="tech-stack">
+                <span class="tech-tag">CI/CD Pipeline</span>
+                <span class="tech-tag">Container Orchestration</span>
+                <span class="tech-tag">Infrastructure Automation</span>
+                <span class="tech-tag">Monitoring Solutions</span>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Neural Network Background (same as previous)
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Animate proficiency meters on scroll
+        const proficiencyFills = document.querySelectorAll('.proficiency-fill');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.style.getPropertyValue('--progress');
+                }
+            });
+        });
+
+        proficiencyFills.forEach(fill => {
+            fill.style.width = '0';
+            observer.observe(fill);
+        });
+    </script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

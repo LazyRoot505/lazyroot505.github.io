@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills - Haroon Ahmad</title>
+    <link rel="stylesheet" href="assets/css/modern-portfolio.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .skills-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skills-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
+            background: linear-gradient(45deg, rgba(108, 99, 255, 0.1), rgba(0, 245, 255, 0.1));
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .skill-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 24px;
+            padding: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.2);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, 
+                rgba(108, 99, 255, 0.1), 
+                rgba(0, 245, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .skill-card:hover::before {
+            opacity: 1;
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .skill-level {
+            margin-top: 1.5rem;
+            position: relative;
+            height: 8px;
+            background: var(--glass);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            position: absolute;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 4px;
+            animation: progressAnim 1.5s ease-out forwards;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            padding: 0.5rem 1rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 12px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        @keyframes progressAnim {
+            from { width: 0; }
+        }
+
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+    </style>
+
+    <!-- Loading Animation Resources -->
+    <link rel="stylesheet" href="assets/css/loading-animations.css">
+    <script src="assets/js/page-loader.js" defer></script>
+</head>
+<body>
+    <canvas id="neuralCanvas" class="neural-bg"></canvas>
+
+    <nav class="modern-nav">
+        <div class="modern-container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="#" class="nav-link">HA</a>
+                <div style="display: flex; gap: 2rem;">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="skills.html" class="nav-link">Skills</a>
+                    <a href="dccs.html" class="nav-link">DCCS</a>
+                    <a href="alnafi-new.html" class="nav-link">Al-Nafi</a>
+                    <a href="ai.html" class="nav-link">AI</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="skills-hero">
+        <div class="modern-container">
+            <h1 class="headline animate-text">Technical Skills</h1>
+            <p class="subheadline">Expertise in Cloud, DevOps, and AI Technologies</p>
+        </div>
+    </section>
+
+    <main class="skills-container">
+        <div class="skill-grid">
+            <a href="dccs.html" class="skill-card">
+                <div>
+                    <div class="skill-icon">🛡️</div>
+                    <h3>DCCS</h3>
+                    <p>Cloud Cybersecurity & DevSecOps</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Cloud Security</span>
+                        <span class="tech-tag">DevSecOps</span>
+                        <span class="tech-tag">IAM</span>
+                    </div>
+                </div>
+                <div class="skill-level">
+                    <div class="skill-progress" style="width: 95%"></div>
+                </div>
+            </a>
+
+            <a href="devops.html" class="skill-card">
+                <div>
+                    <div class="skill-icon">🔄</div>
+                    <h3>DevOps</h3>
+                    <p>CI/CD, Docker, Kubernetes</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">Jenkins</span>
+                    </div>
+                </div>
+                <div class="skill-level">
+                    <div class="skill-progress" style="width: 90%"></div>
+                </div>
+            </a>
+
+            <a href="sysops.html" class="skill-card">
+                <div>
+                    <div class="skill-icon">⚙️</div>
+                    <h3>SysOps</h3>
+                    <p>System Administration & Automation</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Linux</span>
+                        <span class="tech-tag">Automation</span>
+                        <span class="tech-tag">Monitoring</span>
+                    </div>
+                </div>
+                <div class="skill-level">
+                    <div class="skill-progress" style="width: 85%"></div>
+                </div>
+            </a>
+
+            <a href="aiops.html" class="skill-card">
+                <div>
+                    <div class="skill-icon">🤖</div>
+                    <h3>AIOps</h3>
+                    <p>AI-Powered Operations</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Analytics</span>
+                        <span class="tech-tag">Automation</span>
+                    </div>
+                </div>
+                <div class="skill-level">
+                    <div class="skill-progress" style="width: 88%"></div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <script src="assets/js/modern-animations.js"></script>
+    <script>
+        // Neural Network Background
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Add the neural network animation code here
+        function animateBackground() {
+            // Animation code (same as in other pages)
+        }
+
+        animateBackground();
+    </script>
+</body>
+</html>

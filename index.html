@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haroon Ahmad - AI SaaS Developer & Cloud Cybersecurity Professional</title>
+    <link rel="stylesheet" href="assets/css/modern-portfolio.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleAnimation 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            animation: subtitleAnimation 1s ease-out 0.3s backwards;
+        }
+
+        .hero-text {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+            animation: textAnimation 1s ease-out 0.6s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: buttonsAnimation 1s ease-out 0.9s backwards;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--glass);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-stroke);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.2);
+        }
+
+        .skills-section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.2);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .progress-circle {
+            width: 120px;
+            height: 120px;
+            margin: 1rem auto;
+            position: relative;
+        }
+
+        .progress-circle svg {
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle circle {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+        }
+
+        .progress-circle .bg {
+            stroke: var(--darker);
+        }
+
+        .progress-circle .progress {
+            stroke: url(#gradient);
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .featured-section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .featured-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.2);
+        }
+
+        .featured-image {
+            height: 200px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            background: var(--darker);
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes titleAnimation {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes subtitleAnimation {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes textAnimation {
+            from { transform: translateY(10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes buttonsAnimation {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--glass);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+    </style>
+
+    <!-- Loading Animation Resources -->
+    <link rel="stylesheet" href="assets/css/loading-animations.css">
+    <script src="assets/js/page-loader.js" defer></script>
+</head>
+<body>
+    <div class="scroll-progress">
+        <div class="progress-bar" id="scrollProgress"></div>
+    </div>
+
+    <canvas id="neuralCanvas" class="neural-bg"></canvas>
+
+    <nav class="modern-nav">
+        <div class="modern-container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="#" class="nav-link">HA</a>
+                <div style="display: flex; gap: 2rem;">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="skills.html" class="nav-link">Skills</a>
+                    <a href="dccs.html" class="nav-link">DCCS</a>
+                    <a href="alnafi-new.html" class="nav-link">Al-Nafi</a>
+                    <a href="ai.html" class="nav-link">AI</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Haroon Ahmad</h1>
+                <h2 class="hero-subtitle">AI SaaS Developer | Cloud Cybersecurity Professional | DevOps & SysOps Engineer</h2>
+                <p class="hero-text">Transforming the future through AI innovation and robust cybersecurity solutions</p>
+                <div class="cta-buttons">
+                    <a href="#" class="cta-button">Download Resume</a>
+                    <a href="contact.html" class="cta-button">Contact Me</a>
+                    <a href="about.html" class="cta-button">Explore My Journey</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills-section">
+            <div class="modern-container">
+                <h2 class="section-title animate-text">Core Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-card animate-on-scroll">
+                        <div class="skill-icon">🤖</div>
+                        <h3>AI & Machine Learning</h3>
+                        <div class="progress-circle">
+                            <svg width="120" height="120">
+                                <defs>
+                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="var(--primary)" />
+                                        <stop offset="100%" stop-color="var(--accent)" />
+                                    </linearGradient>
+                                </defs>
+                                <circle class="bg" cx="60" cy="60" r="54" />
+                                <circle class="progress" cx="60" cy="60" r="54" stroke-dasharray="339.292" stroke-dashoffset="84.823" />
+                            </svg>
+                        </div>
+                        <p>Advanced AI algorithms and machine learning solutions</p>
+                    </div>
+
+                    <div class="skill-card animate-on-scroll">
+                        <div class="skill-icon">🔒</div>
+                        <h3>Cloud Security</h3>
+                        <div class="progress-circle">
+                            <svg width="120" height="120">
+                                <circle class="bg" cx="60" cy="60" r="54" />
+                                <circle class="progress" cx="60" cy="60" r="54" stroke-dasharray="339.292" stroke-dashoffset="101.788" />
+                            </svg>
+                        </div>
+                        <p>Robust cloud security architecture and implementation</p>
+                    </div>
+
+                    <div class="skill-card animate-on-scroll">
+                        <div class="skill-icon">⚡</div>
+                        <h3>DevOps & SysOps</h3>
+                        <div class="progress-circle">
+                            <svg width="120" height="120">
+                                <circle class="bg" cx="60" cy="60" r="54" />
+                                <circle class="progress" cx="60" cy="60" r="54" stroke-dasharray="339.292" stroke-dashoffset="118.752" />
+                            </svg>
+                        </div>
+                        <p>Streamlined development and operations workflows</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-section">
+            <div class="modern-container">
+                <h2 class="section-title animate-text">Featured Projects</h2>
+                <div class="featured-grid">
+                    <div class="featured-card animate-on-scroll">
+                        <div>
+                            <div class="featured-image">
+                                <img src="assets/images/dccs-preview.jpg" alt="DCCS Project">
+                            </div>
+                            <h3>DCCS Platform</h3>
+                            <p>Digital Cloud Cybersecurity Services - Comprehensive security solutions</p>
+                        </div>
+                        <a href="dccs.html" class="modern-button">Learn More</a>
+                    </div>
+
+                    <div class="featured-card animate-on-scroll">
+                        <div>
+                            <div class="featured-image">
+                                <img src="assets/images/alnafi-preview.jpg" alt="Al-Nafi Project">
+                            </div>
+                            <h3>Al-Nafi Initiative</h3>
+                            <p>Educational platform revolutionizing cybersecurity learning</p>
+                        </div>
+                        <a href="alnafi-new.html" class="modern-button">Learn More</a>
+                    </div>
+
+                    <div class="featured-card animate-on-scroll">
+                        <div>
+                            <div class="featured-image">
+                                <img src="assets/images/ai-preview.jpg" alt="AI Projects">
+                            </div>
+                            <h3>AI Projects</h3>
+                            <p>Cutting-edge artificial intelligence solutions</p>
+                        </div>
+                        <a href="ai.html" class="modern-button">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/js/modern-animations.js"></script>
+    <script>
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // Neural Background Animation
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function animateBackground() {
+            const nodes = [];
+            const connections = [];
+            const nodeCount = 50;
+
+            // Create nodes
+            for (let i = 0; i < nodeCount; i++) {
+                nodes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2 + 1,
+                    speedX: (Math.random() - 0.5) * 1,
+                    speedY: (Math.random() - 0.5) * 1
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Update and draw nodes
+                nodes.forEach(node => {
+                    node.x += node.speedX;
+                    node.y += node.speedY;
+
+                    if (node.x < 0 || node.x > canvas.width) node.speedX *= -1;
+                    if (node.y < 0 || node.y > canvas.height) node.speedY *= -1;
+
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(108, 99, 255, 0.5)';
+                    ctx.fill();
+                });
+
+                // Draw connections
+                nodes.forEach((nodeA, i) => {
+                    nodes.slice(i + 1).forEach(nodeB => {
+                        const dx = nodeB.x - nodeA.x;
+                        const dy = nodeB.y - nodeA.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(nodeA.x, nodeA.y);
+                            ctx.lineTo(nodeB.x, nodeB.y);
+                            ctx.strokeStyle = `rgba(108, 99, 255, ${1 - distance / 150})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    });
+                });
+
+                requestAnimationFrame(draw);
+            }
+
+            draw();
+        }
+
+        animateBackground();
+    </script>
+</body>
+</html>

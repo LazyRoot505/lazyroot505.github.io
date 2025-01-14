@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps - Haroon Ahmad</title>
+    <link rel="stylesheet" href="assets/css/modern-portfolio.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .devops-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
+            background: linear-gradient(45deg, rgba(108, 99, 255, 0.1), rgba(0, 245, 255, 0.1));
+        }
+
+        .pipeline-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .pipeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .pipeline-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 24px;
+            padding: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pipeline-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.2);
+        }
+
+        .pipeline-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tech-item {
+            background: var(--glass);
+            border: 1px solid var(--glass-stroke);
+            border-radius: 12px;
+            padding: 1rem 2rem;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        .workflow-diagram {
+            margin: 4rem 0;
+            position: relative;
+            padding: 2rem;
+            background: var(--glass);
+            border-radius: 24px;
+            border: 1px solid var(--glass-stroke);
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--darker);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .workflow-step:hover {
+            transform: translateX(10px);
+            border-left: 4px solid var(--primary);
+        }
+
+        .step-number {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+    </style>
+
+    <!-- Loading Animation Resources -->
+    <link rel="stylesheet" href="assets/css/loading-animations.css">
+    <script src="assets/js/page-loader.js" defer></script>
+</head>
+<body>
+    <canvas id="neuralCanvas" class="neural-bg"></canvas>
+
+    <nav class="modern-nav">
+        <div class="modern-container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="#" class="nav-link">HA</a>
+                <div style="display: flex; gap: 2rem;">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="skills.html" class="nav-link">Skills</a>
+                    <a href="dccs.html" class="nav-link">DCCS</a>
+                    <a href="alnafi-new.html" class="nav-link">Al-Nafi</a>
+                    <a href="ai.html" class="nav-link">AI</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="devops-hero">
+        <div class="modern-container">
+            <h1 class="headline animate-text">DevOps Engineering</h1>
+            <p class="subheadline">Automating and Optimizing Development Workflows</p>
+        </div>
+    </section>
+
+    <main class="pipeline-container">
+        <div class="pipeline-grid">
+            <div class="pipeline-card">
+                <div class="pipeline-icon">🔄</div>
+                <h3>Continuous Integration</h3>
+                <p>Automated build and test processes ensuring code quality and reliability</p>
+                <div class="tech-stack">
+                    <div class="tech-item">Jenkins</div>
+                    <div class="tech-item">GitLab CI</div>
+                    <div class="tech-item">GitHub Actions</div>
+                </div>
+            </div>
+
+            <div class="pipeline-card">
+                <div class="pipeline-icon">🚀</div>
+                <h3>Continuous Deployment</h3>
+                <p>Streamlined deployment pipelines for faster time-to-market</p>
+                <div class="tech-stack">
+                    <div class="tech-item">Docker</div>
+                    <div class="tech-item">Kubernetes</div>
+                    <div class="tech-item">ArgoCD</div>
+                </div>
+            </div>
+
+            <div class="pipeline-card">
+                <div class="pipeline-icon">📊</div>
+                <h3>Infrastructure as Code</h3>
+                <p>Version-controlled infrastructure management</p>
+                <div class="tech-stack">
+                    <div class="tech-item">Terraform</div>
+                    <div class="tech-item">Ansible</div>
+                    <div class="tech-item">CloudFormation</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="workflow-diagram">
+            <h2>DevOps Workflow</h2>
+            <div class="workflow-step">
+                <div class="step-number">01</div>
+                <div>
+                    <h3>Code & Build</h3>
+                    <p>Version control, automated builds, and code quality checks</p>
+                </div>
+            </div>
+            <div class="workflow-step">
+                <div class="step-number">02</div>
+                <div>
+                    <h3>Test & Validate</h3>
+                    <p>Automated testing, security scanning, and compliance checks</p>
+                </div>
+            </div>
+            <div class="workflow-step">
+                <div class="step-number">03</div>
+                <div>
+                    <h3>Deploy & Monitor</h3>
+                    <p>Automated deployments, performance monitoring, and scaling</p>
+                </div>
+            </div>
+            <div class="workflow-step">
+                <div class="step-number">04</div>
+                <div>
+                    <h3>Operate & Optimize</h3>
+                    <p>Continuous optimization, feedback loops, and improvements</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/modern-animations.js"></script>
+    <script>
+        // Neural Network Background
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function animateBackground() {
+            // Animation code (same as in other pages)
+        }
+
+        animateBackground();
+    </script>
+</body>
+</html>

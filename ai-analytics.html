@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Analytics Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --primary-rgb: 108, 99, 255;
+            --accent: #ff6b6b;
+            --accent-rgb: 255, 107, 107;
+            --success: #4caf50;
+            --success-rgb: 76, 175, 80;
+            --background: #0a0a0a;
+            --surface: #1a1a1a;
+            --text: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-stroke: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(var(--primary-rgb), 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(var(--accent-rgb), 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(var(--success-rgb), 0.1) 0%, transparent 50%);
+            animation: gradientMove 20s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(2%, 2%); }
+            50% { transform: translate(-1%, 1%); }
+            75% { transform: translate(1%, -2%); }
+        }
+
+        .dashboard {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .header {
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 5s ease infinite;
+        }
+
+        @keyframes gradientText {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(30deg); }
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(26, 26, 26, 0.8);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid var(--glass-stroke);
+            backdrop-filter: blur(20px);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(var(--primary-rgb), 0.1),
+                rgba(var(--accent-rgb), 0.1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .trend-up {
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .chart-card {
+            background: rgba(26, 26, 26, 0.8);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid var(--glass-stroke);
+            backdrop-filter: blur(20px);
+            height: 400px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg,
+                rgba(var(--primary-rgb), 0.05),
+                rgba(var(--accent-rgb), 0.05)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .chart-card:hover::before {
+            opacity: 1;
+        }
+
+        .progress-section {
+            margin-bottom: 3rem;
+        }
+
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .progress-card {
+            background: rgba(26, 26, 26, 0.8);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid var(--glass-stroke);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .progress-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: var(--glass);
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 6px;
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(50%); }
+        }
+
+        .tools-section {
+            margin-bottom: 3rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .tool-card {
+            background: rgba(26, 26, 26, 0.8);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid var(--glass-stroke);
+            backdrop-filter: blur(20px);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .tool-name {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .tool-progress {
+            width: 100px;
+            height: 100px;
+            margin: 1rem auto;
+            position: relative;
+        }
+
+        .back-to-ai {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.2);
+            z-index: 100;
+        }
+
+        .back-to-ai:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.3);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Neural Network Background */
+        #neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+
+    <!-- Loading Animation Resources -->
+    <link rel="stylesheet" href="assets/css/loading-animations.css">
+    <script src="assets/js/page-loader.js" defer></script>
+</head>
+<body>
+    <div class="dashboard">
+        <canvas id="neural-bg"></canvas>
+        <div class="header">
+            <h1>AI Analytics Dashboard</h1>
+            <p>Real-time insights and performance metrics</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Model Accuracy</h3>
+                <div class="stat-value">98.7%</div>
+                <div class="stat-trend trend-up">↑ 2.3% from last month</div>
+            </div>
+            <div class="stat-card">
+                <h3>Training Time</h3>
+                <div class="stat-value">4.2h</div>
+                <div class="stat-trend trend-up">↓ 15% improvement</div>
+            </div>
+            <div class="stat-card">
+                <h3>Active Users</h3>
+                <div class="stat-value">12.5K</div>
+                <div class="stat-trend trend-up">↑ 8.7% growth</div>
+            </div>
+            <div class="stat-card">
+                <h3>API Calls</h3>
+                <div class="stat-value">1.2M</div>
+                <div class="stat-trend trend-up">↑ 12.4% increase</div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>Model Performance Over Time</h3>
+                <canvas id="performanceChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Resource Utilization</h3>
+                <canvas id="resourceChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Error Distribution</h3>
+                <canvas id="errorChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>User Engagement</h3>
+                <canvas id="engagementChart"></canvas>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <h2>Project Progress</h2>
+            <div class="progress-grid">
+                <div class="progress-card">
+                    <h3>Model Training</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%"></div>
+                    </div>
+                    <div>85% Complete</div>
+                </div>
+                <div class="progress-card">
+                    <h3>Data Processing</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92%"></div>
+                    </div>
+                    <div>92% Complete</div>
+                </div>
+                <div class="progress-card">
+                    <h3>API Integration</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 78%"></div>
+                    </div>
+                    <div>78% Complete</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tools-section">
+            <h2>Tools & Technologies</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">🐍</div>
+                    <div class="tool-name">Python</div>
+                    <div class="tool-progress" id="pythonProgress"></div>
+                    <div>95% Proficiency</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">📊</div>
+                    <div class="tool-name">TensorFlow</div>
+                    <div class="tool-progress" id="tensorflowProgress"></div>
+                    <div>88% Proficiency</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">🧠</div>
+                    <div class="tool-name">PyTorch</div>
+                    <div class="tool-progress" id="pytorchProgress"></div>
+                    <div>82% Proficiency</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">📈</div>
+                    <div class="tool-name">Scikit-learn</div>
+                    <div class="tool-progress" id="sklearnProgress"></div>
+                    <div>90% Proficiency</div>
+                </div>
+            </div>
+        </div>
+
+        <a href="ai.html" class="back-to-ai">
+            <span>🔙</span>
+            Back to AI Projects
+        </a>
+    </div>
+
+    <script>
+        // Neural Network Background
+        function createNeuralBackground() {
+            const canvas = document.getElementById('neural-bg');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const particles = [];
+            const connections = [];
+            const particleCount = 50;
+            const connectionDistance = 150;
+            
+            // Create particles
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    speedX: (Math.random() - 0.5) * 0.5,
+                    speedY: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 3 + 1
+                });
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Update and draw particles
+                particles.forEach(particle => {
+                    particle.x += particle.speedX;
+                    particle.y += particle.speedY;
+                    
+                    if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
+                    if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
+                    
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(108, 99, 255, 0.2)';
+                    ctx.fill();
+                });
+                
+                // Draw connections
+                particles.forEach((particleA, i) => {
+                    particles.slice(i + 1).forEach(particleB => {
+                        const dx = particleB.x - particleA.x;
+                        const dy = particleB.y - particleA.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < connectionDistance) {
+                            ctx.beginPath();
+                            ctx.moveTo(particleA.x, particleA.y);
+                            ctx.lineTo(particleB.x, particleB.y);
+                            ctx.strokeStyle = `rgba(108, 99, 255, ${1 - distance / connectionDistance})`;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    });
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+            
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // Initialize neural background
+        createNeuralBackground();
+
+        // Enhanced chart configurations
+        Chart.defaults.color = '#ffffff';
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+
+        // Performance Chart with animation
+        const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(performanceCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Accuracy',
+                    data: [92, 93, 95, 94, 96, 98],
+                    borderColor: '#6c63ff',
+                    backgroundColor: 'rgba(108, 99, 255, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Resource Chart with gradient
+        const resourceCtx = document.getElementById('resourceChart').getContext('2d');
+        const resourceGradient = resourceCtx.createLinearGradient(0, 0, 0, 400);
+        resourceGradient.addColorStop(0, 'rgba(255, 107, 107, 0.8)');
+        resourceGradient.addColorStop(1, 'rgba(255, 107, 107, 0.2)');
+
+        new Chart(resourceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['CPU', 'Memory', 'GPU', 'Storage', 'Network'],
+                datasets: [{
+                    label: 'Usage',
+                    data: [75, 82, 90, 65, 70],
+                    backgroundColor: resourceGradient,
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                }
+            }
+        });
+
+        // Error Distribution with hover effects
+        const errorCtx = document.getElementById('errorChart').getContext('2d');
+        new Chart(errorCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Classification', 'Prediction', 'Training', 'Validation'],
+                datasets: [{
+                    data: [15, 25, 35, 25],
+                    backgroundColor: [
+                        'rgba(108, 99, 255, 0.8)',
+                        'rgba(255, 107, 107, 0.8)',
+                        'rgba(76, 175, 80, 0.8)',
+                        'rgba(255, 215, 0, 0.8)'
+                    ],
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                }
+            }
+        });
+
+        // Engagement Chart with area
+        const engagementCtx = document.getElementById('engagementChart').getContext('2d');
+        const engagementGradient = engagementCtx.createLinearGradient(0, 0, 0, 400);
+        engagementGradient.addColorStop(0, 'rgba(76, 175, 80, 0.4)');
+        engagementGradient.addColorStop(1, 'rgba(76, 175, 80, 0)');
+
+        new Chart(engagementCtx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [{
+                    label: 'Active Users',
+                    data: [5000, 7500, 10000, 12500],
+                    borderColor: '#4caf50',
+                    backgroundColor: engagementGradient,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                }
+            }
+        });
+
+        // Animate progress bars on scroll
+        const progressBars = document.querySelectorAll('.progress-fill');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.parentElement.getAttribute('data-progress') + '%';
+                }
+            });
+        }, { threshold: 0.5 });
+
+        progressBars.forEach(bar => observer.observe(bar));
+
+        // Tool progress circles with dynamic animation
+        function createProgressCircle(elementId, percentage) {
+            const options = {
+                chart: {
+                    height: 100,
+                    type: 'radialBar',
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 1000,
+                        dynamicAnimation: {
+                            enabled: true,
+                            speed: 350
+                        }
+                    }
+                },
+                series: [percentage],
+                colors: ['#6c63ff'],
+                plotOptions: {
+                    radialBar: {
+                        hollow: {
+                            size: '70%'
+                        },
+                        track: {
+                            background: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        dataLabels: {
+                            show: false
+                        }
+                    }
+                }
+            };
+
+            new ApexCharts(document.querySelector('#' + elementId), options).render();
+        }
+
+        createProgressCircle('pythonProgress', 95);
+        createProgressCircle('tensorflowProgress', 88);
+        createProgressCircle('pytorchProgress', 82);
+        createProgressCircle('sklearnProgress', 90);
+    </script>
+</body>
+</html>

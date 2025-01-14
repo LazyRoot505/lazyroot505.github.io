@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haroon Ahmad - AI SaaS Developer & Cloud Cybersecurity Professional</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/ultra-modern.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .skills-section {
+            padding: 4rem 2rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .project-card {
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.8),
+                transparent
+            );
+        }
+    </style>
+
+    <!-- Loading Animation Resources -->
+    <link rel="stylesheet" href="assets/css/loading-animations.css">
+    <script src="assets/js/page-loader.js" defer></script>
+</head>
+<body class="cyber-gradient">
+    <div id="particleContainer"></div>
+
+    <header class="glass-morphism" style="position: fixed; width: 100%; z-index: 1000;">
+        <nav style="padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+            <div class="cyber-text" data-glitch>HA</div>
+            <div style="display: flex; gap: 2rem;">
+                <a href="#" class="cyber-text hover-glow">Home</a>
+                <a href="about.html" class="cyber-text hover-glow">About</a>
+                <a href="skills.html" class="cyber-text hover-glow">Skills</a>
+                <a href="dccs.html" class="cyber-text hover-glow">DCCS</a>
+                <a href="alnafi.html" class="cyber-text hover-glow">Al-Nafi</a>
+                <a href="ai.html" class="cyber-text hover-glow">AI</a>
+                <a href="contact.html" class="cyber-text hover-glow">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="cyber-text glitch-text" data-text="Haroon Ahmad">Haroon Ahmad</h1>
+                <h2 class="cyber-text">AI SaaS Developer & Cloud Cybersecurity Professional</h2>
+                <div class="cta-container">
+                    <button class="cyber-button hover-float">Download Resume</button>
+                    <button class="cyber-button hover-float">Explore Projects</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills-section scroll-reveal">
+            <div class="cyber-grid">
+                <div class="tiktok-card hover-float">
+                    <div class="tiktok-content">
+                        <h3 class="cyber-text">DCCS</h3>
+                        <div class="cyber-spinner"></div>
+                        <p>Cloud Cybersecurity Excellence</p>
+                    </div>
+                </div>
+
+                <div class="tiktok-card hover-float">
+                    <div class="tiktok-content">
+                        <h3 class="cyber-text">DevOps</h3>
+                        <div class="cyber-spinner"></div>
+                        <p>Streamlined Development Operations</p>
+                    </div>
+                </div>
+
+                <div class="tiktok-card hover-float">
+                    <div class="tiktok-content">
+                        <h3 class="cyber-text">AIOps</h3>
+                        <div class="cyber-spinner"></div>
+                        <p>AI-Powered Operations</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="projects-grid scroll-reveal">
+            <div class="project-card tiktok-card cyber-3d">
+                <div class="project-content">
+                    <h3 class="cyber-text">Cloud Security Implementation</h3>
+                    <p>Advanced security protocols for cloud infrastructure</p>
+                </div>
+            </div>
+
+            <div class="project-card tiktok-card cyber-3d">
+                <div class="project-content">
+                    <h3 class="cyber-text">AI Integration Platform</h3>
+                    <p>Seamless AI integration for modern applications</p>
+                </div>
+            </div>
+
+            <div class="project-card tiktok-card cyber-3d">
+                <div class="project-content">
+                    <h3 class="cyber-text">DevOps Automation</h3>
+                    <p>Automated pipeline for continuous deployment</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/js/cyber-effects.js"></script>
+    <script>
+        // Initialize glitch effect on load
+        document.querySelectorAll('.glitch-text').forEach(element => {
+            setInterval(() => {
+                const glitch = new GlitchText(element);
+                glitch.glitch();
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
